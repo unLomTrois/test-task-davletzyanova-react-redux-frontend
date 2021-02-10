@@ -1,0 +1,85 @@
+.note {
+  background-color: white;
+  border-radius: 5px;
+}
+
+.note--wrapper {
+  flex: 1 1 auto;
+  padding: 1rem 1rem;
+}
+
+.note__title {
+  display: inline-block;
+  width: 95%;
+}
+
+.note__index a {
+  text-decoration: none;
+  color: #555555;
+}
+
+.note__index a:hover {
+  font-style: italic;
+}
+
+a.link {
+  color: cornflowerblue;
+  text-decoration: none;
+}
+
+a.link:hover {
+  text-decoration: underline;
+}
+
+.note__action__delete {
+  cursor: pointer;
+}
+.note__action__delete:hover {
+  color: red;
+}
+
+.note__action__save {
+  cursor: pointer;
+}
+.note__action__save:hover {
+  color: cornflowerblue;
+}
+
+.note__title__input {
+  border: none !important;
+  outline: none;
+  width: 100%;
+}
+
+.note__title__input--editing {
+  border: 2px solid cornflowerblue !important;
+  border-radius: 3px;
+  outline: none;
+  width: 100%;
+}
+
+.note__description {
+  border: none !important;
+  outline: none;
+  width: 100%;
+  resize: none;
+}
+
+.note__description--editing {
+  border: 2px solid cornflowerblue !important;
+  border-radius: 3px;
+  outline: none;
+  width: 100%;
+  resize: none;
+}
+/* 
+
+.star-icon {
+  color: goldenrod;
+}
+
+.note-info-github-icon {
+  color: unset;
+}
+
+*/

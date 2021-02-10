@@ -1,15 +1,13 @@
 import React from "react";
 import "./App.css";
+import Notes from "./features/notes/Notes";
 
 const App = () => {
   return (
-    <div className="App">
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos cumque
-        quasi natus dignissimos praesentium ipsum placeat debitis, sed, ad
-        delectus sint velit. Magnam, nemo nesciunt autem dolorem est culpa
-        asperiores.
-      </p>
+    <div className="App container-md">
+      <div className="my-3 mx-auto">
+        <Notes />
+      </div>
     </div>
   );
 }
