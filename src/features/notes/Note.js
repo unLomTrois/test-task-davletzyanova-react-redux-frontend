@@ -43,7 +43,7 @@ const Note = ({ id, title, description }) => {
         },
       })
     );
-    fetch(`http://localhost:5000/api/notes/${id}/update`, {
+    fetch(`api/notes/${id}/update`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -58,7 +58,7 @@ const Note = ({ id, title, description }) => {
 
     dispatch(notesRemove(id));
 
-    fetch(`http://localhost:5000/api/notes/${id}/delete`, {
+    fetch(`api/notes/${id}/delete`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });

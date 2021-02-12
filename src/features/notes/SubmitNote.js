@@ -25,7 +25,7 @@ const SubmitNote = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(notesAddOne({ id: next_id, title, description }));
-    fetch("http://localhost:5000/api/notes/add", {
+    fetch("api/notes/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: next_id, title, description }),

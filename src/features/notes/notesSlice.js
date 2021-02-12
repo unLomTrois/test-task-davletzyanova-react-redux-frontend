@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 
 export const fetchNotes = createAsyncThunk("notes/fetchAll", async () => {
-  const response = await fetch("http://localhost:5000/api/notes", {
+  const response = await fetch("api/notes", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   }).then((res) => res.json());
