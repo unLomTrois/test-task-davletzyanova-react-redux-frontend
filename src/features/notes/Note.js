@@ -1,34 +1,72 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { notesRemove, notesUpdate } from "./notesSlice";
+
 import "./Note.css";
 
-const Note = ({ title, description, id }) => {
+const Note = ({ id, title, description }) => {
   const [isEditing, toggleEditing] = useState(false);
+  const [editable_title, editTitle] = useState(title);
+  const [editable_description, editDescription] = useState(description);
 
-  // const note = useSelector(selectNotes);
-  // const dispatch = useDispatch()
+  const description_ref = useRef(0);
 
-  const handleDescription = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // to expand height on mount
+    description_ref.current.style.height = `${description_ref.current.scrollHeight}px`;
+  });
+
+  const handleTitle = (e) => {
     toggleEditing(true);
+    editTitle(e.target.value);
   };
 
-  const handleTitle = () => {
+  const handleDescription = (e) => {
     toggleEditing(true);
+    e.target.style.height = "inherit";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+
+    editDescription(e.target.value);
   };
 
   const handleSave = () => {
     toggleEditing(false);
 
-    // dispatch(testStore())
+    dispatch(
+      notesUpdate({
+        id,
+        changes: {
+          title: editable_title,
+          description: editable_description,
+        },
+      })
+    );
+    fetch(`http://localhost:5000/api/notes/${id}/update`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: editable_title,
+        description: editable_description,
+      }),
+    });
   };
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    console.log(id);
+
+    dispatch(notesRemove(id));
+
+    fetch(`http://localhost:5000/api/notes/${id}/delete`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+  };
 
   return (
     <div className="note mb-3 shadow">
-      <div className="note--wrapper">
-        <h5 className="note__index float-end pe-2 user-select-none">
-          <a href={"#" + id}> #{id}</a>
-        </h5>
+      <div className="note--container">
         <h5 className="note__title" id={id}>
           <input
             type="text"
@@ -36,7 +74,7 @@ const Note = ({ title, description, id }) => {
             className={
               isEditing ? "note__title__input--editing" : "note__title__input"
             }
-            value={title}
+            value={isEditing ? editable_title : title}
             placeholder="Название заметки"
             onChange={handleTitle}
           />
@@ -45,9 +83,10 @@ const Note = ({ title, description, id }) => {
           className={
             isEditing ? "note__description--editing" : "note__description"
           }
-          value={description}
+          value={isEditing ? editable_description : description}
           onChange={handleDescription}
           placeholder="Текст заметки"
+          ref={description_ref}
         />
         <div className="note__actions--wrapper px-1">
           <div className="note__actions d-inline clearfix">

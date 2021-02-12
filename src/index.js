@@ -5,6 +5,10 @@ import App from './App';
 import store from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import { fetchNotes } from './features/notes/notesSlice';
+
+// fetch notes before rendering
+store.dispatch(fetchNotes());
 
 ReactDOM.render(
   <React.StrictMode>

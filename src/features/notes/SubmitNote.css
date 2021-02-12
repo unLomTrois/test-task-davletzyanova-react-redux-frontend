@@ -1,0 +1,68 @@
+.submit-note {
+  background-color: white;
+  border-radius: 5px;
+}
+
+.submit-note--wrapper {
+  flex: 1 1 auto;
+  padding: 1rem 1rem;
+}
+
+.submit-note__text {
+  border: none !important;
+  border-color: transparent !important;
+  outline: none;
+  width: 100%;
+  resize: none;
+}
+
+.submit-note__index a {
+  text-decoration: none;
+  color: #555555;
+}
+
+.submit-note__index a:hover {
+  font-style: italic;
+}
+
+a.link {
+  color: cornflowerblue;
+  text-decoration: none;
+}
+
+a.link:hover {
+  text-decoration: underline;
+}
+
+.submit-note__action__delete {
+  cursor: pointer;
+}
+.submit-note__action__delete:hover {
+  color: red;
+}
+
+.submit-note__action__edit {
+  cursor: pointer;
+}
+.submit-note__action__edit:hover {
+  color: cornflowerblue;
+}
+
+.submit-note__title--input {
+  border: none !important;
+  border-color: transparent !important;
+  outline: none;
+  width: 100%;
+}
+
+.submit__button {
+  color: white;
+  border-color: cornflowerblue;
+  background-color: cornflowerblue;
+}
+
+.submit__button:hover {
+  color: white;
+  border-color: cornflowerblue;
+  background-color: cornflowerblue;
+}

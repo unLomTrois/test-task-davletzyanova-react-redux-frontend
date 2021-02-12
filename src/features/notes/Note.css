@@ -3,7 +3,7 @@
   border-radius: 5px;
 }
 
-.note--wrapper {
+.note--container {
   flex: 1 1 auto;
   padding: 1rem 1rem;
 }
@@ -52,7 +52,7 @@ a.link:hover {
 }
 
 .note__title__input--editing {
-  border: 2px solid cornflowerblue !important;
+  border: none !important;
   border-radius: 3px;
   outline: none;
   width: 100%;
@@ -66,20 +66,16 @@ a.link:hover {
 }
 
 .note__description--editing {
-  border: 2px solid cornflowerblue !important;
+  border: none !important;
   border-radius: 3px;
   outline: none;
   width: 100%;
   resize: none;
 }
-/* 
 
-.star-icon {
-  color: goldenrod;
+.notes__list--empty {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
 }
-
-.note-info-github-icon {
-  color: unset;
-}
-
-*/

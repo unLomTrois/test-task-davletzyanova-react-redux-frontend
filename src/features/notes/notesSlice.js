@@ -1,50 +1,64 @@
-import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+} from "@reduxjs/toolkit";
+
+export const fetchNotes = createAsyncThunk("notes/fetchAll", async () => {
+  const response = await fetch("http://localhost:5000/api/notes", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  }).then((res) => res.json());
+  return response;
+});
 
 export const notesAdapter = createEntityAdapter({
   selectId: (note) => note.id,
-
-  sortComparer: (a, b) => a.title.localeCompare(b.title),
 });
 
-const initialState = notesAdapter.getInitialState({
-  value: [
-    {
-      title: "kek",
-      description: "lorem keksum",
-      id: 0,
-    },
-    {
-      title: "lol",
-      description: "lorem lolsum",
-      id: 1,
-    },
-  ],
-});
+const emptyState = notesAdapter.getInitialState();
+
+const filledState = notesAdapter.upsertMany(emptyState, []);
 
 export const notesSlice = createSlice({
   name: "notes",
-  initialState,
+  initialState: filledState,
   reducers: {
-    // addNote: (state, action) => {
-    //   state.push(action.payload);
-    // },
-    // editNoteTitle: (state, action) => {
-    //   console.log(action.payload);
-    //   // state[]
-    // },
+    setAllNotes: notesAdapter.setAll,
+    notesAddOne: notesAdapter.addOne,
+    notesAddMany: notesAdapter.addMany,
+    notesUpdate: notesAdapter.updateOne,
+    notesRemove: notesAdapter.removeOne,
+  },
+  extraReducers: {
+    [fetchNotes.fulfilled]: (state, action) => {
+      notesAdapter.setAll(state, action.payload);
+    },
   },
 });
 
-export const { testStore } = notesSlice.actions;
+// actions
+export const {
+  setAllNotes,
+  notesAddOne,
+  notesAddMany,
+  notesUpdate,
+  notesRemove,
+} = notesSlice.actions;
 
-export const selectNotes = (state) => state.notes.value;
-
-// Export the customized selectors for this adapter using `getSelectors`
+// selectors
 export const {
   selectAll: selectAllNotes,
   selectById: selectNoteById,
-  selectIds: selectNoteIds
+  selectIds: selectNoteIds,
+  selectTotal: selectTotalNotes,
   // Pass in a selector that returns the posts slice of state
-} = notesAdapter.getSelectors(state => state.posts)
+} = notesAdapter.getSelectors((state) => state.notes);
+
+export const getLastNoteID = (state) => {
+  const notes = selectAllNotes(state);
+
+  return notes[notes.length - 1]?.id ?? -1;
+};
 
 export default notesSlice.reducer;
